@@ -2,13 +2,6 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Event listener for speed control
-const speedSlider = document.getElementById("speedSlider");
-speedSlider.addEventListener("input", () => {
-    setSpeed(speedSlider.value);
-    speedDisplay.textContent = `${1050-speedSlider.value} ms`;
-});
-
 // Define grid dimensions and cell size
 const rows = 50;
 const cols = 50;
@@ -24,7 +17,41 @@ let running = true;
 let isMouseDown = false;
 let lastTime = 0;
 
+// Event listener for speed control
+const speedSlider = document.getElementById("speedSlider");
+speedSlider.addEventListener("input", () => {
+    setSpeed(speedSlider.value);
+    speedDisplay.textContent = `${1050-speedSlider.value} ms`;
+});
 
+canvas.addEventListener("mousedown", (e) => {
+  isMouseDown = true;
+  paintCell(e);
+});
+
+canvas.addEventListener("mouseup", () => {
+  isMouseDown = false;
+});
+
+canvas.addEventListener("mouseleave", () => {
+  isMouseDown = false; // stop painting if mouse leaves canvas
+});
+
+canvas.addEventListener("mousemove", (e) => {
+  if (isMouseDown) {
+    paintCell(e);
+  }
+});
+
+function paintCell(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor((e.clientY - rect.top) / cellSize); // row
+    const y = Math.floor((e.clientX - rect.left) / cellSize); // col
+    if (x >= 0 && x < rows && y >= 0 && y < cols) {
+        grid[x][y] = grid[x][y] ? 0 : 1; // toggle cell state
+        drawGrid(grid);
+    }
+}
 
 // --- Grid Functions ---
 
