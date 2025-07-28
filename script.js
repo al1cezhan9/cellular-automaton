@@ -2,6 +2,13 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// Event listener for speed control
+const speedSlider = document.getElementById("speedSlider");
+speedSlider.addEventListener("input", () => {
+    setSpeed(speedSlider.value);
+    speedDisplay.textContent = `${1050-speedSlider.value} ms`;
+});
+
 // Define grid dimensions and cell size
 const rows = 50;
 const cols = 50;
@@ -14,6 +21,10 @@ canvas.height = rows * cellSize;
 // Initialize grid and control state
 let grid = createGrid(rows, cols);
 let running = true;
+let isMouseDown = false;
+let lastTime = 0;
+
+
 
 // --- Grid Functions ---
 
@@ -85,11 +96,15 @@ function drawGrid(grid) {
 }
 
 // --- Simulation Loop ---
+function loop(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    const deltaTime = timestamp - lastTime;
 
-function loop() {
-    if (running) {
+    if (running && deltaTime > speed) {
         grid = updateGrid(grid);
+        lastTime = timestamp; // reset lastTime to current timestamp
     }
+
     drawGrid(grid);
     requestAnimationFrame(loop);
 }
@@ -104,6 +119,18 @@ function resetGrid() {
     grid = createGrid(rows, cols);
 }
 
+function step() {
+    if (!running) {
+        grid = updateGrid(grid);
+        drawGrid(grid);
+    }
+}
+
+function setSpeed(newSpeed) {
+    speed = 1000 - parseInt(newSpeed, 10);
+}
+
 // --- Start the simulation ---
 drawGrid(grid);
+setSpeed(document.getElementById("speedSlider").value);
 loop();

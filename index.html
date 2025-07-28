@@ -26,6 +26,12 @@
         <button onclick="toggleRunning()">Play / Pause</button>
         <!--Calls resetGrid() in JS when clicked-->
         <button onclick="resetGrid()">Reset</button>
+        <!--Calls step() in JS when clicked-->
+        <button onclick="step()">Step</button>
+        <!--Slider for the simulation speed-->
+        <label for="speedSlider">Speed:</label>
+        <input type="range" id="speedSlider" min="50" max="1000" value="525"/>
+        <span id="speedDisplay">525 ms</span>
     </div>
 
     <!--Loads JS file (script.js) after the page content-->
