@@ -1,0 +1,32 @@
+<!--Declares the document type-->
+<!DOCTYPE html>
+
+<html lang="en">
+<!--Everything in HEAD is metadat, not visible-->
+<head>
+    <!--Ensures text is encoded properly-->
+    <meta charset="UTF-8" />
+    <!--Makes the site responsive on mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--The title of your page (shows in the browser tab)-->
+    <title>Cellular Automata</title>
+    <!--Loads external CSS file for styling-->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<!--Everything here is visible on the webpage-->
+<body>
+    <h1>Cellular Automata!</h1>
+    <!--Drawing surface where you'll render the grid via JS-->
+    <canvas id="gameCanvas"></canvas>
+    <div class="controls">
+        <!--Calls toggleRunning() in JS when clicked-->
+        <button onclick="toggleRunning()">Play / Pause</button>
+        <!--Calls resetGrid() in JS when clicked-->
+        <button onclick="resetGrid()">Reset</button>
+    </div>
+
+    <!--Loads JS file (script.js) after the page content-->
+    <script src="script.js"></script>
+</body>
+</html>
