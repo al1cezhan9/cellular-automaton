@@ -10,11 +10,11 @@ body {
   flex-direction: column;      /* stack vertically */
   justify-content: center;     /* center vertically */
   align-items: center;         /* center horizontally */
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;  /* optional */
+  background-color: #f0f0f0; 
+  font-family: 'EB Garamond', Garamond, serif;
 }
 
-/* Optional: style buttons with some spacing */
+/* style buttons with some spacing */
 .controls {
   margin-top: 10px;
 }
@@ -24,4 +24,5 @@ button {
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
+  font-family: inherit;
 }
