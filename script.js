@@ -12,9 +12,10 @@ canvas.width = cols * cellSize;
 canvas.height = rows * cellSize;
 
 // Initialize grid and control state
-let grid = createGrid(rows, cols);
-let running = true;
+let grid = createEmptyGrid(rows, cols);
+let running = false;
 let isMouseDown = false;
+let speed = document.getElementById("speedSlider").value;
 let lastTime = 0;
 
 // Event listener for speed control
@@ -55,13 +56,12 @@ function paintCell(e) {
 
 // --- Grid Functions ---
 
-function createGrid(rows, cols) {
-//   const grid = [];
-//   for (let r = 0; r < rows; r++) {
-//     const row = new Array(cols).fill(0);
-//     grid.push(row);
-//   }
-    const grid = createRandomGrid(rows, cols);
+function createEmptyGrid(rows, cols) {
+    const grid = [];
+    for (let r = 0; r < rows; r++) {
+        const row = new Array(cols).fill(0);
+        grid.push(row);
+    }
     return grid;
 }
 
@@ -75,6 +75,16 @@ function createRandomGrid(rows, cols, aliveProb = 0.3) {
         grid.push(row);
     }
     return grid;
+}
+
+function resetGrid() {
+    grid = createEmptyGrid(rows, cols);
+    drawGrid(grid);
+}
+
+function randomizeGrid() {
+    grid = createRandomGrid(rows, cols);
+    drawGrid(grid);
 }
 
 function countAliveNeighbors(grid, x, y) {
@@ -91,7 +101,7 @@ function countAliveNeighbors(grid, x, y) {
 }
 
 function updateGrid(grid) {
-    const nextGrid = createGrid(rows, cols);
+    const nextGrid = createEmptyGrid(rows, cols);
     for (let x = 0; x < rows; x++) {
         for (let y = 0; y < cols; y++) {
             const alive_neighbors = countAliveNeighbors(grid, x, y);
@@ -142,10 +152,6 @@ function toggleRunning() {
     running = !running;
 }
 
-function resetGrid() {
-    grid = createGrid(rows, cols);
-}
-
 function step() {
     if (!running) {
         grid = updateGrid(grid);
@@ -159,5 +165,4 @@ function setSpeed(newSpeed) {
 
 // --- Start the simulation ---
 drawGrid(grid);
-setSpeed(document.getElementById("speedSlider").value);
 loop();
