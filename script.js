@@ -3,8 +3,8 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 // Define grid dimensions and cell size
-const rows = 20;
-const cols = 20;
+const rows = 30;
+const cols = 30;
 const cellSize = 10;
 
 // Set canvas size
